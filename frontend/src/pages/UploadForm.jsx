@@ -47,3 +47,4 @@ return (
 </form>
 );
 }
+export default UploadForm;
