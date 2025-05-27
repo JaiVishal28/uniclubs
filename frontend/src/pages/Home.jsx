@@ -5,5 +5,4 @@ Home Page – Event Gallery Coming Soon
 </div>
 );
 }
-
 export default Home;
