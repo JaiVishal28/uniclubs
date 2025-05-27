@@ -4,6 +4,7 @@ import UploadForm from "./pages/UploadForm";
 import './App.css';
 import './index.css';
 import Home from "./pages/Home";
+import CreatePoster from "./pages/CreatePoster";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <nav className="nav-links">
             <Link to="/">Home</Link>
             <Link to="/upload">Upload Event</Link>
+            <Link to="/poster">Create Poster</Link>
           </nav>
         </header>
 
@@ -21,6 +23,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/upload" element={<UploadForm />} />
+            <Route path="/poster" element={<CreatePoster />} />
           </Routes>
         </main>
 

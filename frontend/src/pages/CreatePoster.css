@@ -1,0 +1,114 @@
+.upload-form {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: #a4f2ea;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.upload-form h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  color: rgb(27, 124, 215);
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-row label {
+  width: 150px;
+  font-weight: bold;
+  color: #444;
+}
+
+.form-row input[type="text"],
+.form-row input[type="date"],
+.form-row input[type="file"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.button-row {
+  justify-content: center;
+}
+
+.coolBeans {
+  border: 2px solid currentColor;
+  border-radius: 3rem;
+  color: indigo;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
+  overflow: hidden;
+  padding: 1rem 2rem;
+  position: relative;
+  text-decoration: none;
+  transition: 0.2s transform ease-in-out;
+  will-change: transform;
+  z-index: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.coolBeans::after {
+  background-color: rgb(68, 237, 102);
+  border-radius: 3rem;
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%, 0) rotate(10deg);
+  transform-origin: top left;
+  transition: 0.2s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+}
+
+.coolBeans:hover::after {
+  transform: translate(0, 0);
+}
+
+.coolBeans:hover {
+  border: 2px solid transparent;
+  color: indigo;
+  transform: scale(1.05);
+}
+.poster-preview {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.preview-image {
+  max-width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  margin-top: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.download-link {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.download-link:hover {
+  background-color: #555;
+}
