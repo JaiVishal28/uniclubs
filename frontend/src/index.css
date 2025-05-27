@@ -4,9 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(229, 26, 26, 0.87);
   background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -24,8 +23,7 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  height:100%;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -33,6 +31,7 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+  text-align: left;
 }
 
 button {
