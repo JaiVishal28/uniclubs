@@ -12,7 +12,7 @@
   text-align: center;
   margin-bottom: 25px;
   font-size: 24px;
-  color: #ed3a3a;
+  color: rgb(27, 124, 215);
 }
 
 .form-row {
@@ -41,17 +41,47 @@
   justify-content: center;
 }
 
-.upload-form button {
-  background-color: #007bff;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
+.coolBeans {
+  border: 2px solid currentColor;
+  border-radius: 3rem;
+  color: indigo;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 100;
+  overflow: hidden;
+  padding: 1rem 2rem;
+  position: relative;
+  text-decoration: none;
+  transition: 0.2s transform ease-in-out;
+  will-change: transform;
+  z-index: 0;
+  background-color: transparent;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-.upload-form button:hover {
-  background-color: #0056b3;
+.coolBeans::after {
+  background-color: rgb(68, 237, 102);
+  border-radius: 3rem;
+  content: '';
+  display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-100%, 0) rotate(10deg);
+  transform-origin: top left;
+  transition: 0.2s transform ease-out;
+  will-change: transform;
+  z-index: -1;
+}
+
+.coolBeans:hover::after {
+  transform: translate(0, 0);
+}
+
+.coolBeans:hover {
+  border: 2px solid transparent;
+  color: indigo;
+  transform: scale(1.05);
 }

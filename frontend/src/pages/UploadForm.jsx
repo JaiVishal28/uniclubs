@@ -71,7 +71,7 @@ function UploadForm() {
       </div>
 
       <div className="form-row button-row">
-        <button type="submit">Submit</button>
+        <button type="submit" className="coolBeans">Submit</button>
       </div>
     </form>
   );
