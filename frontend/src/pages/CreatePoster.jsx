@@ -20,12 +20,12 @@ function UploadForm() {
       [name]: files ? files[0] : value,
     }));
   };
+  
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Step 1: Generate the poster via Bannerbear
   const bannerbearPayload = {
-    template: "wvgMNmDoppqGbyARK0", // your template UID
+    template: "wvgMNmDoppqGbyARK0",
     modifications: [
       { name: "event_name", text: formData.eventName },
       { name: "club_name", text: formData.clubName },
@@ -36,36 +36,59 @@ const handleSubmit = async (e) => {
   };
 
   try {
+    // Step 1: Request image generation
     const response = await axios.post("https://api.bannerbear.com/v2/images", bannerbearPayload, {
       headers: {
-        Authorization: `Bearer bb_pr_037205d05254099e5435e92d17d415`, // use 'Bearer' prefix
+        Authorization: `Bearer bb_pr_037205d05254099e5435e92d17d415`,
         "Content-Type": "application/json"
       }
     });
 
-    const imageUrl = response.data.image_url;
-    console.log("Poster URL:", imageUrl);
-    setPosterUrl(imageUrl);
+    const imageUid = response.data.uid;
+    console.log("Image UID:", imageUid);
 
-    // Step 2: Send to your backend with poster URL
+    // Step 2: Poll Bannerbear for the generated image
+    let imageUrl = null;
+    for (let i = 0; i < 10; i++) {
+      const statusResp = await axios.get(`https://api.bannerbear.com/v2/images/${imageUid}`, {
+        headers: {
+          Authorization: `Bearer bb_pr_037205d05254099e5435e92d17d415`,
+        }
+      });
+
+      if (statusResp.data.image_url) {
+        imageUrl = statusResp.data.image_url;
+        break;
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // wait 2 seconds
+    }
+
+    if (!imageUrl) {
+      alert("Image generation timed out.");
+      return;
+    }
+
+    setPosterUrl(imageUrl);
+    console.log("Poster URL:", imageUrl); // ✅ You should now see a real URL
+
+    // Step 3: Send to backend
     const backendPayload = {
       ...formData,
-      generatedPosterUrl: imageUrl, // include the generated poster URL
+      generatedPosterUrl: imageUrl,
     };
 
-    // Optional: if you're using FormData because you're uploading images manually
     const data = new FormData();
     Object.entries(backendPayload).forEach(([key, value]) => {
       data.append(key, value);
     });
 
-    await axios.post("http://localhost:5000/api/events", data); // ✅ update your backend URL here
+    await axios.post("http://localhost:5000/api/events", data);
     alert("Event uploaded and poster generated!");
-    console.log("Poster URL:", imageUrl);
   } catch (error) {
-  console.error("Bannerbear Error:", error.response?.data || error.message);
-  alert("Poster generation failed.");
-}
+    console.error("Error:", error.response?.data || error.message);
+    alert("Poster generation failed.");
+  }
 };
 
   return (
@@ -105,11 +128,11 @@ const handleSubmit = async (e) => {
       <div className="form-row button-row">
         <button type="submit" className="coolBeans">Submit</button>
       </div>
-      {imageUrl && (
+      {posterUrl && (
       <div className="poster-preview">
         <h3>Poster Preview</h3>
-        <img src={imageUrl} alt="Generated Poster" className="preview-image" />
-        <a href={imageUrl} download className="download-link">Download Poster</a>
+        <img src={posterUrl} alt="Generated Poster" className="preview-image" />
+        <a href={posterUrl} download className="download-link">Download Poster</a>
       </div>
     )}
     </form>
