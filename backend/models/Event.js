@@ -9,3 +9,5 @@ date: String,
 registrationLink: String,
 posterUrl: String,
 });
+
+module.exports = mongoose.model("Event", EventSchema);
