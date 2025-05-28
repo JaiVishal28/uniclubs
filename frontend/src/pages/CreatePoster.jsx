@@ -44,6 +44,7 @@ const handleSubmit = async (e) => {
     });
 
     const imageUrl = response.data.image_url;
+    console.log("Poster URL:", imageUrl);
     setPosterUrl(imageUrl);
 
     // Step 2: Send to your backend with poster URL
@@ -60,7 +61,7 @@ const handleSubmit = async (e) => {
 
     await axios.post("http://localhost:5000/api/events", data); // ✅ update your backend URL here
     alert("Event uploaded and poster generated!");
-
+    console.log("Poster URL:", imageUrl);
   } catch (error) {
   console.error("Bannerbear Error:", error.response?.data || error.message);
   alert("Poster generation failed.");
@@ -104,11 +105,11 @@ const handleSubmit = async (e) => {
       <div className="form-row button-row">
         <button type="submit" className="coolBeans">Submit</button>
       </div>
-      {posterUrl && (
+      {imageUrl && (
       <div className="poster-preview">
         <h3>Poster Preview</h3>
-        <img src={posterUrl} alt="Generated Poster" className="preview-image" />
-        <a href={posterUrl} download className="download-link">Download Poster</a>
+        <img src={imageUrl} alt="Generated Poster" className="preview-image" />
+        <a href={imageUrl} download className="download-link">Download Poster</a>
       </div>
     )}
     </form>
