@@ -21,20 +21,22 @@ function UploadForm() {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const data = new FormData();
-    Object.entries(formData).forEach(([key, value]) => {
-      data.append(key, value);
-    });
+  e.preventDefault();
+  const data = new FormData();
+  Object.entries(formData).forEach(([key, value]) => {
+    data.append(key, value);
+  });
 
-    try {
-      await axios.post("https://your-backend-url/api/events", data);
-      alert("Event uploaded!");
-    } catch (err) {
-      console.error(err);
-      alert("Upload failed.");
-    }
-  };
+  try {
+    await axios.post("http://localhost:5000/api/events", data, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    alert("Event uploaded!");
+  } catch (err) {
+    console.error(err);
+    alert("Upload failed.");
+  }
+};
 
   return (
     <form onSubmit={handleSubmit} className="upload-form">
