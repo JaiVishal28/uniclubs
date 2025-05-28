@@ -20,7 +20,7 @@ function UploadForm() {
       [name]: files ? files[0] : value,
     }));
   };
-  
+
 const handleSubmit = async (e) => {
   e.preventDefault();
 
@@ -129,12 +129,35 @@ const handleSubmit = async (e) => {
         <button type="submit" className="coolBeans">Submit</button>
       </div>
       {posterUrl && (
-      <div className="poster-preview">
-        <h3>Poster Preview</h3>
-        <img src={posterUrl} alt="Generated Poster" className="preview-image" />
-        <a href={posterUrl} download className="download-link">Download Poster</a>
-      </div>
-    )}
+  <div className="poster-preview">
+    <h3>Poster Preview</h3>
+    <img src={posterUrl} alt="Generated Poster" className="preview-image" />
+
+    <button
+      type="button"
+      className="download-link"
+      onClick={async () => {
+        try {
+          const response = await fetch(posterUrl);
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `${formData.eventName}_poster.jpg`; // desired file name
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        } catch (err) {
+          alert("Failed to download image.");
+          console.error(err);
+        }
+      }}
+    >
+      Download Poster
+    </button>
+  </div>
+)}
     </form>
     
   );
