@@ -25,7 +25,8 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const bannerbearPayload = {
-    template: "wvgMNmDoppqGbyARK0",
+    template: formData.template || "wvgMNmDoppqGbyARK0", // Default to Template 1 if not specified
+
     modifications: [
       { name: "event_name", text: formData.eventName },
       { name: "club_name", text: formData.clubName },
@@ -117,9 +118,15 @@ const handleSubmit = async (e) => {
 
       <div className="form-row">
         <label htmlFor="registrationLink">Registration Link</label>
-        <input type="text" name="registrationLink" id="registrationLink" onChange={handleChange} />
+        <input type="text" name="registrationLink" id="registrationLink" required onChange={handleChange} />
       </div>
-
+      <div className="form-row">
+        <label htmlFor="template">Template</label>
+        <select name="template" id="template" onChange={handleChange}>
+          <option value="wvgMNmDoppqGbyARK0">Template 1</option>
+          <option value="wXmzGBDakB2qZLN7gj">Template 2</option>
+        </select>
+      </div>
       {/* <div className="form-row">
         <label htmlFor="posterImage">Poster Image</label>
         <input type="file" name="posterImage" id="posterImage" accept="image/*" required onChange={handleChange} />
