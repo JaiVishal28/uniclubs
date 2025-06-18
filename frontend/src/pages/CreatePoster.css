@@ -36,7 +36,15 @@
   border-radius: 8px;
   font-size: 14px;
 }
-
+select {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+option {
+  padding: 10px;
+}
 .button-row {
   justify-content: center;
 }
