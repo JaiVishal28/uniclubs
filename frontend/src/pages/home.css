@@ -1,0 +1,28 @@
+.poster-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 1.5rem;
+padding: 2rem;
+}
+
+.poster-card {
+text-align: center;
+text-decoration: none;
+transition: transform 0.3s ease;
+}
+
+.poster-card:hover {
+transform: scale(1.05);
+}
+
+.poster-image {
+width: 100%;
+border-radius: 1rem;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.poster-title {
+margin-top: 0.5rem;
+font-weight: bold;
+color: #333;
+}
