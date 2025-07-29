@@ -9,7 +9,6 @@ function UploadForm() {
     venue: "",
     date: "",
     registrationLink: "",
-    posterImage: null,
   });
   const [posterUrl, setPosterUrl] = useState("");
 
@@ -25,7 +24,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const bannerbearPayload = {
-    template: formData.template || "wvgMNmDoppqGbyARK0", // Default to Template 1 if not specified
+    template: formData.template || "wXmzGBDakr0GZLN7gj", // Default to Template 1 if not specified
 
     modifications: [
       { name: "event_name", text: formData.eventName },
@@ -40,7 +39,7 @@ const handleSubmit = async (e) => {
     // Step 1: Request image generation
     const response = await axios.post("https://api.bannerbear.com/v2/images", bannerbearPayload, {
       headers: {
-        Authorization: `Bearer bb_pr_037205d05254099e5435e92d17d415`,
+        Authorization: `Bearer bb_pr_9389fc3e3ab0e18da9a003493bf8d8`,
         "Content-Type": "application/json"
       }
     });
@@ -53,7 +52,7 @@ const handleSubmit = async (e) => {
     for (let i = 0; i < 10; i++) {
       const statusResp = await axios.get(`https://api.bannerbear.com/v2/images/${imageUid}`, {
         headers: {
-          Authorization: `Bearer bb_pr_037205d05254099e5435e92d17d415`,
+          Authorization: `Bearer bb_pr_9389fc3e3ab0e18da9a003493bf8d8`,
         }
       });
 
@@ -73,19 +72,7 @@ const handleSubmit = async (e) => {
     setPosterUrl(imageUrl);
     console.log("Poster URL:", imageUrl); // ✅ You should now see a real URL
 
-    // Step 3: Send to backend
-    const backendPayload = {
-      ...formData,
-      generatedPosterUrl: imageUrl,
-    };
-
-    const data = new FormData();
-    Object.entries(backendPayload).forEach(([key, value]) => {
-      data.append(key, value);
-    });
-
-    await axios.post("http://localhost:5000/api/events", data);
-    alert("Event uploaded and poster generated!");
+    alert("Poster generated successfully! You can now download it.");
   } catch (error) {
     console.error("Error:", error.response?.data || error.message);
     alert("Poster generation failed.");
@@ -124,7 +111,7 @@ const handleSubmit = async (e) => {
         <label htmlFor="template">Template</label>
         <select name="template" id="template" onChange={handleChange}>
           <option value="wvgMNmDoppqGbyARK0">Template 1</option>
-          <option value="wXmzGBDakB2qZLN7gj">Template 2</option>
+          <option value="w0kdleZG1pMjDorWxN">Template 2</option>
         </select>
       </div>
       {/* <div className="form-row">

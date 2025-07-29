@@ -19,23 +19,34 @@ const upload = multer({ storage: storage });
 
 // POST /api/events - upload event info + poster image file
 router.post("/", upload.single("posterImage"), async (req, res) => {
-  const { eventName, clubName, venue, date, registrationLink } = req.body;
+  const {
+    eventName,
+    clubName,
+    venue,
+    date,
+    registrationLink,
+    generatedPosterUrl, // received from frontend
+  } = req.body;
+
   const posterFile = req.file;
 
-  if (!posterFile) {
-    return res.status(400).json({ error: "Poster image file is required" });
+  // ✅ Fix: Allow either uploaded file OR generatedPosterUrl
+  if (!posterFile && !generatedPosterUrl) {
+    return res.status(400).json({ error: "Poster image or generated URL is required" });
   }
 
-  const posterUrl = `/uploads/${posterFile.filename}`; // relative path to access the image
-
   try {
+    const posterUrl = posterFile
+      ? `/uploads/${posterFile.filename}`
+      : generatedPosterUrl;
+
     const newEvent = new Event({
       eventName,
       clubName,
       venue,
       date,
       registrationLink,
-      posterUrl: `/uploads/${req.file.filename}`,
+      posterUrl,
     });
 
     await newEvent.save();
@@ -46,6 +57,7 @@ router.post("/", upload.single("posterImage"), async (req, res) => {
     res.status(500).json({ error: "Failed to save event" });
   }
 });
+
 
 // GET /api/events - fetch all events sorted by date descending
 router.get("/", async (req, res) => {
